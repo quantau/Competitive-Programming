@@ -1,1 +1,1 @@
-This is where I will place my competitive Programming solves.
+This is where I will place my Competitive Programming solves.
