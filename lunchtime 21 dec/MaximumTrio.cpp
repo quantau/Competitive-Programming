@@ -13,21 +13,6 @@
 
 using namespace std;
 
-const ll N = 2 * 1e5 + 1;
-const ll M = 20;
-ll arr[M][N];
-
-void pre()
-{
-    for (ll i = 0; i < M; i++)
-    {
-        for (ll j = 1; j < N; j++)
-        {
-            arr[i][j] = arr[i - 1][j] + ((j >> i) & 1);
-        }
-    }
-}
-
 int main()
 {
     //optimization tool
@@ -38,19 +23,19 @@ int main()
     //freopen("input.txt","r",stdin);
     //freopen("output.txt","w",stdout);
 
-    pre();
     ll t;
     cin >> t;
     while (t--)
     {
-        ll l, r;
-        cin >> l >> r;
-        ll ans = 0;
-        for (ll i = 0; i <= M; i++)
+        ll n;
+        cin >> n;
+        ll a[n];
+        for (ll i = 0; i < n; i++)
         {
-            ans = max(ans, arr[r] - arr[l - 1]);
+            cin >> a[i];
         }
-        cout << (r - l + 1) - ans << nl;
+        sort(a, a + n);
+        cout << max(a[n - 1] * (a[n - 2] - a[0]), a[n - 2] * (a[n - 1] - a[0])) << nl;
     }
     return 0;
 }
