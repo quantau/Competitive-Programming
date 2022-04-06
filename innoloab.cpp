@@ -34,6 +34,7 @@ int main()
 
     // input of customer data
     int q; // number of queries
+    cin >> q;
     for (int i = 0; i < q; i++)
     {
         // i will be considered as the index of customer
@@ -47,7 +48,7 @@ int main()
         {
             string s;
             cin >> s;
-            vec[i] = s;
+            vec[j] = s;
         }
         interestedShopList.pb(vec);
         preftimeList.pb(preftime);
@@ -100,15 +101,16 @@ int main()
         vector<int> vec(24, 0);
         for (auto x : interestedShopList[i])
         {
+            int time_now = 0;
             for (auto z : mp[x])
             {
                 if (z > 0)
                 {
-                    vec[z]++;
+                    vec[time_now]++;
                 }
+                time_now++;
             }
         }
-
         for (int i = 0; i < 24; i++)
         {
             if (vec[i] >= total_Shops_interest)
@@ -122,7 +124,7 @@ int main()
             }
         }
 
-        //updating the new capacity of shops
+        // updating the new capacity of shops
         if (time != -1)
         {
             for (auto x : interestedShopList[i])
