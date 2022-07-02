@@ -1,0 +1,76 @@
+#include <bits/stdc++.h>
+#define sz(x) x.size()
+#define all(v) v.begin(), v.end()
+#define rall(v) v.rbegin(), v.rend()
+#define nl "\n";
+#define dbg(i) cout << "HERE " << i << endl;
+#define var(x, y, z) cout << x << " " << y << " " << z << endl;
+#define ll long long int
+#define pii pair<ll, ll>
+#define pb push_back
+#define ff first
+#define ss second
+#define on_bit(x) __builtin_popcountll(x)
+#define msb(x) (63 - __builtin_clzll(x))
+#define lsb(x) __builtin_ctzll(x)
+#define FASTIO                \
+    ios ::sync_with_stdio(0); \
+    cin.tie(0);               \
+    cout.tie(0);
+#define FREOPEN                       \
+    freopen("input.txt", "r", stdin); \
+    freopen("output.txt", "w", stdout);
+
+using namespace std;
+
+int main()
+{
+    FASTIO
+    ll n, C;
+    cin >> n >> C;
+    vector<ll> mx_atcost(C + 1, 0);
+    for (ll i = 0; i < n; i++)
+    {
+        ll c, d, h;
+        cin >> c >> d >> h;
+        mx_atcost[c] = max(d * h, mx_atcost[c]);
+    }
+    vector<ll> bst(C + 1, 0);
+    for (ll i = 1; i <= C; i++)
+    {
+        ll val = mx_atcost[i];
+        for (ll j = i; j <= C; j += i)
+        {
+            bst[j] = max(bst[j], val);
+            val += mx_atcost[i];
+        }
+    }
+    for (ll i = 1; i <= C; i++)
+    {
+        bst[i] = max(bst[i], bst[i - 1]);
+    }
+    ll m;
+    cin >> m;
+    while (m--)
+    {
+        ll D, H;
+        cin >> D >> H;
+        ll lo = 1, hi = C;
+        ll res = C + 1;
+        while (lo <= hi)
+        {
+            ll mid = (lo + hi) / 2;
+            if (bst[mid] > D * H)
+            {
+                res = min(res, mid);
+                hi = mid - 1;
+            }
+            else
+            {
+                lo = mid + 1;
+            }
+        }
+        cout << (res == C + 1 ? -1 : res) << nl;
+    }
+    return 0;
+}
